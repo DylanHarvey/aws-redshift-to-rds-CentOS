@@ -1,13 +1,13 @@
-FROM ubuntu:14.04
+FROM CentOS 5.x
 
 ENV HOME /root
 ENV DEBIAN_FRONTEND noninteractive
 WORKDIR /root
-RUN apt-get update
+RUN yum update
 
 # ghc 7.8.3
-RUN apt-get install -y openssh-server # so that bootstrap.sh and wget works without --no-check-certificate (?)
-RUN apt-get install -y wget libgmp3-dev build-essential
+RUN yum install -y openssh-server # so that bootstrap.sh and wget works without --no-check-certificate (?)
+RUN yum install -y wget libgmp3-dev build-essential
 RUN ln -s /usr/lib/x86_64-linux-gnu/libgmp.so.10 /usr/lib/libgmp.so.3
 RUN ln -s /usr/lib/x86_64-linux-gnu/libgmp.so.10 /usr/lib/libgmp.so
 RUN wget http://www.haskell.org/ghc/dist/7.8.3/ghc-7.8.3-x86_64-unknown-linux-deb7.tar.xz
@@ -52,7 +52,7 @@ ENV LC_ALL en_US.UTF-8
 RUN cabal install -j happy
 
 # install some dependencies
-RUN apt-get install -y libpq-dev
+RUN yum install -y libpq-dev
 
 # copy code to container
 RUN mkdir -p /root/aws-redshift-to-rds
